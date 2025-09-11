@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      args:
+        RAILS_DIR: $COMPOSE_PROJECT_NAME
+    command: development
+    stdin_open: true
+    tty: true
+    healthcheck:
+      disable: true
+    env_file:
+      - .env
+    volumes:
+      - .:/$COMPOSE_PROJECT_NAME
+      - app_bundler:/$COMPOSE_PROJECT_NAME/vendor/ruby
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+
+  db:
+    image: postgres:17
+    restart: always
+    environment:
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASSWORD
+      POSTGRES_DB: $DB_NAME
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+  app_bundler:
+  db_data:
