@@ -23,6 +23,10 @@ Rails.application.routes.draw do
       end
 
       resources :maintenance_services, only: [:update]
+
+      resources :reports, only: [] do
+        get :maintenance_summary, on: :collection
+      end
     end
   end
 end
