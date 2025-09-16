@@ -1,11 +1,25 @@
 class ApiApplicationController < ActionController::API
 
-  rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
-  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+  rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found
+  rescue_from ActiveRecord::RecordInvalid, with: :handle_unprocessable_entity
+
+  protected
+
+  def pagination(record)
+    {
+      pagination: {
+        total_records: record.total_count,
+        current_page: record.current_page,
+        total_pages: record.total_pages,
+        next_page: record.next_page,
+        prev_page: record.prev_page
+      }
+    }
+  end
 
   private
 
-  def render_unprocessable_entity(exception)
+  def handle_unprocessable_entity(exception)
     render json: {
       error: {
         code: 422,
@@ -15,7 +29,7 @@ class ApiApplicationController < ActionController::API
     }, status: :unprocessable_entity
   end
 
-  def render_not_found(exception)
+  def handle_not_found(exception)
     render json: {
       error: {
         code: 404,
