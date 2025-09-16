@@ -1,4 +1,5 @@
 class ApiApplicationController < ActionController::API
+  before_action :authorized
 
   rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :handle_unprocessable_entity
@@ -15,6 +16,35 @@ class ApiApplicationController < ActionController::API
         prev_page: record.prev_page
       }
     }
+  end
+
+  def encode_token(payload)
+    JWT.encode(payload, Rails.application.credentials.dig(:jwt, :secret_key))
+  end
+
+  def decoded_token
+    header = request.headers['Authorization']
+    if header
+      token = header.split(" ")[1]
+      begin
+        JWT.decode(token, Rails.application.credentials.dig(:jwt, :secret_key))
+      rescue JWT::DecodeError
+        nil
+      end
+    end
+  end
+
+  def current_user
+    if decoded_token
+      user_id = decoded_token[0]['user_id']
+      @user = User.find_by(id: user_id)
+    end
+  end
+
+  def authorized
+    unless !!current_user
+    render json: { code: 401, message: 'Not Authorized' }, status: :unauthorized
+    end
   end
 
   private
