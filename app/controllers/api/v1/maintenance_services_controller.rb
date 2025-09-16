@@ -14,16 +14,7 @@ module Api
                            .page(params[:page])
                            .per(params[:per_page])
 
-        render json: {
-          data: ActiveModelSerializers::SerializableResource.new(services),
-          pagination: {
-            total_results: services.total_count,
-            current_page: services.current_page,
-            total_pages: services.total_pages,
-            next_page: services.next_page,
-            prev_page: services.prev_page
-          }
-        }
+        render json: services, meta: pagination(services)
       end
 
       # POST /api/v1/vehicles/:vehicle_id/maintenance_services

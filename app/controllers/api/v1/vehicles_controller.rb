@@ -12,16 +12,7 @@ module Api
                           .page(params[:page])
                           .per(params[:per_page])
 
-        render json: {
-          data: ActiveModelSerializers::SerializableResource.new(vehicles),
-          pagination: {
-            total_records: vehicles.total_count,
-            current_page: vehicles.current_page,
-            total_pages: vehicles.total_pages,
-            next_page: vehicles.next_page,
-            prev_page: vehicles.prev_page
-          }
-        }
+        render json: vehicles, meta: pagination(vehicles)
       end
 
       # GET /api/v1/vehicles/:id
