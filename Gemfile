@@ -62,8 +62,10 @@ end
 
 # Add project dependencies
 gem 'active_model_serializers', '~> 0.10.15'
+gem 'bootstrap'
 gem 'haml-rails', '~> 2.0'
 gem 'jwt', '~> 3.1'
 gem 'kaminari'
 gem 'rack-cors', '~> 3.0'
 gem 'rails-patterns'
+gem 'sassc-rails'
