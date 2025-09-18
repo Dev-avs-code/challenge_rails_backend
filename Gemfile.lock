@@ -91,6 +91,8 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.6)
       msgpack (~> 1.2)
+    bootstrap (5.3.5)
+      popper_js (>= 2.11.8, < 3)
     brakeman (7.1.0)
       racc
     builder (3.3.0)
@@ -127,6 +129,14 @@ GEM
       railties (>= 6.1.0)
     faker (3.5.2)
       i18n (>= 1.8.11, < 2)
+    ffi (1.17.2-aarch64-linux-gnu)
+    ffi (1.17.2-aarch64-linux-musl)
+    ffi (1.17.2-arm-linux-gnu)
+    ffi (1.17.2-arm-linux-musl)
+    ffi (1.17.2-arm64-darwin)
+    ffi (1.17.2-x86_64-darwin)
+    ffi (1.17.2-x86_64-linux-gnu)
+    ffi (1.17.2-x86_64-linux-musl)
     globalid (1.2.1)
       activesupport (>= 6.1)
     haml (6.3.0)
@@ -225,6 +235,7 @@ GEM
     pg (1.6.2-x86_64-darwin)
     pg (1.6.2-x86_64-linux)
     pg (1.6.2-x86_64-linux-musl)
+    popper_js (2.11.8)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -338,6 +349,14 @@ GEM
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     rubyzip (3.1.0)
+    sassc (2.4.0)
+      ffi (~> 1.9)
+    sassc-rails (2.1.2)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     securerandom (0.4.1)
     selenium-webdriver (4.35.0)
       base64 (~> 0.2)
@@ -404,6 +423,7 @@ DEPENDENCIES
   active_model_serializers (~> 0.10.15)
   bcrypt (~> 3.1.7)
   bootsnap
+  bootstrap
   brakeman
   capybara
   debug
@@ -422,6 +442,7 @@ DEPENDENCIES
   rails-patterns
   rspec-rails (~> 7.0.0)
   rubocop-rails-omakase
+  sassc-rails
   selenium-webdriver
   sprockets-rails
   stimulus-rails
