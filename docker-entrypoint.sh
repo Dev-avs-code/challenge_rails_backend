@@ -17,7 +17,7 @@ elif [ "$1" = 'test' ]
 then
   bundle install
   wait-for-it $DB_HOST:5432 -s -t 30 -- bundle exec rails db:prepare
-  bundle exec rails test
+  bundle exec rspec
 elif [ "$1" = 'rails' ]
 then
   bundle install
