@@ -1,0 +1,96 @@
+{
+  "type": "object",
+  "required": [
+    "vehicles",
+    "meta"
+  ],
+  "properties": {
+    "vehicles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "vin",
+          "plate",
+          "brand",
+          "model",
+          "year",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "vin": {
+            "type": "string"
+          },
+          "plate": {
+            "type": "string"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "year": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "pagination"
+      ],
+      "properties": {
+        "pagination": {
+          "type": "object",
+          "required": [
+            "total_records",
+            "current_page",
+            "total_pages",
+            "next_page",
+            "prev_page"
+          ],
+          "properties": {
+            "total_records": {
+              "type": "integer"
+            },
+            "current_page": {
+              "type": "integer"
+            },
+            "total_pages": {
+              "type": "integer"
+            },
+            "next_page": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "prev_page": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

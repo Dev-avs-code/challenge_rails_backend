@@ -12,7 +12,7 @@ module Api
             token: @token
           }, status: :accepted
         else
-          render json: {message: 'Invalid credentials'}, status: :unauthorized
+          render json: { error: { code: 401, message: 'Invalid credentials'} }, status: :unauthorized
         end
       end
 

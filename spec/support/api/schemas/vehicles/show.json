@@ -1,0 +1,51 @@
+{
+  "type": "object",
+  "required": [
+    "vehicle"
+  ],
+  "properties": {
+    "vehicle": {
+      "type": "object",
+      "required": [
+        "id",
+        "vin",
+        "plate",
+        "brand",
+        "model",
+        "year",
+        "status",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "vin": {
+          "type": "string"
+        },
+        "plate": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

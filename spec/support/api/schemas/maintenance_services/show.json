@@ -1,0 +1,50 @@
+{
+  "type": "object",
+  "required": [
+    "maintenance_service"
+  ],
+  "properties": {
+    "maintenance_service": {
+      "type": "object",
+      "required": [
+        "id",
+        "description",
+        "status",
+        "cost_cents",
+        "priority",
+        "completed_at",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "cost_cents": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "completed_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
