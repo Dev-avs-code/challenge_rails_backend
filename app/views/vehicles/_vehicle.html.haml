@@ -1,0 +1,11 @@
+= turbo_frame_tag vehicle, target: :_top do
+  .row.position-relative.py-3.border-bottom
+    .col.inline-block= vehicle.vin
+    .col.inline-block= vehicle.plate
+    .col.inline-block= vehicle.brand
+    .col.inline-block= vehicle.model
+    .col.inline-block= vehicle.status
+    .col-md-3.d-flex.gap-2
+      = link_to 'View Services', vehicle_maintenance_services_path(vehicle), class: 'btn btn-primary btn-sm'
+      = link_to_modal 'Edit', edit_vehicle_path(vehicle), class: 'btn btn-success btn-sm'
+      = button_to 'Delete', vehicle, method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm'

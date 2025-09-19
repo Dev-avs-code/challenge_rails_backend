@@ -1,0 +1,10 @@
+= turbo_frame_tag maintenance_service do
+  .row.position-relative.py-3.border-bottom
+    .col.inline-block= maintenance_service.id
+    .col.inline-block= maintenance_service.description
+    .col.inline-block= maintenance_service.status
+    .col.inline-block= maintenance_service.cost_cents
+    .col.inline-block= maintenance_service.priority
+    .col.inline-block= l(maintenance_service.completed_at, format: :long, default: '-')
+    .col.inline-block
+      = link_to_modal 'Edit', edit_vehicle_maintenance_service_path(@vehicle, maintenance_service), class: 'btn btn-success'

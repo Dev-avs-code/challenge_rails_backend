@@ -1,0 +1,19 @@
+.d-flex.gap-4.py-3
+  = link_to '<- Back', root_path, class: 'btn btn-secondary'
+%h2.text-primary.mb-4= "Maintenance services for vehicle #{@vehicle.vin}"
+= render('card_vehicle', vehicle: @vehicle)
+.d-flex.flex-row.justify-content-between.text-muted.py-5
+  %span= page_entries_info @maintenance_services
+  = link_to_modal 'New maintenance service', new_vehicle_maintenance_service_path(@vehicle), class: 'btn btn-primary'
+.row.fs-4.my-0.py-2.border-bottom.border-top.border-primary.text-primary
+  .col ID
+  .col Description
+  .col Status
+  .col Cost ents
+  .col Priority
+  .col Completed at
+  .col
+= turbo_frame_tag :maintenance_services do
+  = render @maintenance_services
+.row.justify-content-center.my-2
+  = paginate @maintenance_services
