@@ -1,0 +1,30 @@
+= form_with model: [@vehicle, @maintenance_service], data: { action: "turbo:submit-end->modal#submitForm" } do |f|
+  - if @maintenance_service.errors.any?
+    .alert.alert-danger
+      %h4.alert-heading= "#{pluralize(@maintenance_service.errors.count, 'error')} prohibited this maintenance service from being saved:"
+      %ul.mb-0
+        - @maintenance_service.errors.full_messages.each do |message|
+          %li= message
+
+  .mb-3
+    = f.label :description, class: 'form-label'
+    = f.text_field :description, class: 'form-control', placeholder: 'Enter service description'
+
+  .mb-3
+    = f.label :status, class: 'form-label'
+    = f.select :status, MaintenanceService.statuses.keys.map { |s| [s.titleize, s] }, { prompt: 'Select status' }, class: 'form-select'
+
+  .mb-3
+    = f.label :cost_cents, 'Cost (cents)', class: 'form-label'
+    = f.number_field :cost_cents, step: 0.01, class: 'form-control', placeholder: 'e.g. 1000.00'
+
+  .mb-3
+    = f.label :priority, class: 'form-label'
+    = f.select :priority, MaintenanceService.priorities.keys.map { |p| [p.titleize, p] }, { prompt: 'Select priority' }, class: 'form-select'
+
+  .mb-3
+    = f.label :completed_at, class: 'form-label'
+    = f.datetime_field :completed_at, class: 'form-control'
+
+  .d-flex.justify-content-end
+    = f.submit 'Save', class: 'btn btn-primary'

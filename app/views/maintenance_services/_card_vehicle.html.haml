@@ -1,0 +1,24 @@
+.col-md-12
+  .card
+    .card-header
+      %h5.mb-0 Vehicle Information
+    .card-body
+      %dl.row
+        %dt.col-sm-3 VIN
+        %dd.col-sm-9= vehicle.vin
+
+        %dt.col-sm-3 Plate
+        %dd.col-sm-9= vehicle.plate
+
+        %dt.col-sm-3 Brand
+        %dd.col-sm-9= vehicle.brand
+
+        %dt.col-sm-3 Model
+        %dd.col-sm-9= vehicle.model
+
+        %dt.col-sm-3 Year
+        %dd.col-sm-9= vehicle.year
+
+        %dt.col-sm-3 Status
+        %dd.col-sm-9
+          %span= vehicle.status.titleize

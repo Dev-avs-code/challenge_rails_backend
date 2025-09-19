@@ -1,0 +1,15 @@
+%h1.text-primary Listing vehicles
+.d-flex.flex-row.justify-content-between.text-muted.py-3
+  %span= page_entries_info @vehicles
+  = link_to_modal 'New Vehicle', new_vehicle_path, class: 'btn btn-primary'
+.row.fs-4.my-0.py-2.border-bottom.border-top.border-primary.text-primary
+  .col Vin
+  .col Plate
+  .col Brand
+  .col Model
+  .col Status
+  .col-md-3
+= turbo_frame_tag :vehicles do
+  = render @vehicles
+.row.justify-content-center.my-2
+  = paginate @vehicles
