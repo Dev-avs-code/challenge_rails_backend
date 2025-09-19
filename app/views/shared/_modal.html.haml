@@ -1,0 +1,8 @@
+= turbo_frame_tag 'modal' do
+  .modal.block.show.fade#modal-certificate{ tabindex: '-1', 'data-controller': 'modal' }
+    .modal-dialog.modal-dialog-centered.modal-lg
+      .modal-content
+        .modal-header.d-flex.justify-content-end
+          %button.btn-close{ type: 'button', 'data-bs-dismiss': 'modal' }
+        .modal-body
+          = yield
