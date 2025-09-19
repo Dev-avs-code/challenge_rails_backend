@@ -1,7 +1,7 @@
 # Vehicle Maintenance Management System
 
 ## Description
-System for managing vehicle maintenance, which allows the registration of vehicles and their associated maintenance records through the REST API and simple HTML views.
+System for managing vehicle maintenance, which allows the registration of vehicles and their associated maintenance records through the API REST and simple HTML views.
 
 ## Prerequisites
 * Docker
@@ -182,10 +182,9 @@ PATCH /api/v1/vehicles/:id
 ### Delete Vehicle
 ```http
 DELETE /api/v1/vehicles/:id
-
+```
 **Response:**
 204 Not content
-```
 
 ## Maintenance Services
 
