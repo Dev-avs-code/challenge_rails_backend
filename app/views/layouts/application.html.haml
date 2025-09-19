@@ -15,4 +15,7 @@
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
   %body
-    = yield
+    = turbo_frame_tag 'modal'
+    %main.pt-5.px-3.vh-100
+      .container.py-4
+        = yield
