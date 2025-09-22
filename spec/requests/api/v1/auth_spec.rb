@@ -10,10 +10,19 @@ RSpec.describe '/api/v1/auth', type: :request do
     expect(response).to match_response_schema('auth/login')
   end
 
-  it 'unauthorized user login' do
-    post '/api/v1/auth/login', params: { email: user.email, password: 'other_passwrod'}
+  context 'unauthorized user' do
+    it 'login with incorrect paswword' do
+      post '/api/v1/auth/login', params: { email: user.email, password: 'other_passwrod'}
 
-    expect(response).to have_http_status(:unauthorized)
-    expect(response).to match_response_schema('errors')
+      expect(response).to have_http_status(:unauthorized)
+      expect(response).to match_response_schema('errors')
+    end
+
+    it 'login without paswword' do
+      post '/api/v1/auth/login', params: { email: user.email }
+
+      expect(response).to have_http_status(:unauthorized)
+      expect(response).to match_response_schema('errors')
+    end
   end
 end

@@ -45,11 +45,9 @@ POST /api/v1/auth/login
 **Response:**
 ```json
 {
-  "user": {
-      "id": 1,
-      "email": "user@example.com"
-  },
-  "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyfQ.njAWp5JJoK1rykdWk6JJr5BGLNs6SwJoIrX-JQpMD18"
+  "message": "Login successful",
+  "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1LCJleHAiOjE3NTg1MDI2ODN9.cN4wIigX9mujJbruULExk7PU3WArwD03PRdc8v-YpLI",
+  "token_type": "Bearer"
 }
 ```
 
@@ -350,6 +348,29 @@ All endpoints except `/api/v1/auth/login` require authentication. Include the JW
 
 ```http
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9...
+```
+**If you need to create an account, you can use endpoint:**
+
+#### Create account
+```http
+POST /api/v1/users
+```
+
+**Request Body:**
+```json
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+```
+
+**Response:**
+```json
+{
+  "message": "Account created successfully",
+  "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1LCJleHAiOjE3NTg1MDI2ODN9.cN4wIigX9mujJbruULExk7PU3WArwD03PRdc8v-YpLI",
+  "token_type": "Bearer"
+}
 ```
 ## Views
 The application has simple HTML views to enable quick interaction without using the API.

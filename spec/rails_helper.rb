@@ -67,4 +67,5 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
   # FactoryBot shortcuts
   config.include FactoryBot::Syntax::Methods
+  config.include TestHelpers::AuthHelpers, type: :request
 end

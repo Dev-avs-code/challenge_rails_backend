@@ -1,29 +1,20 @@
 {
   "type": "object",
   "required": [
+    "message",
     "token",
-    "user"
+    "token_type"
   ],
   "properties": {
+    "message": {
+      "type": "string"
+    },
     "token": {
       "type": "string",
       "minLength": 20
     },
-    "user": {
-      "type": "object",
-      "required": [
-        "id",
-        "email"
-      ],
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "email": {
-          "type": "string",
-          "format": "email"
-        }
-      }
+    "token_type": {
+      "type": "string"
     }
   },
   "additionalProperties": false
