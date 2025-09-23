@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_15_024146) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_22_191158) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,7 +23,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_15_024146) do
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
     t.index ["completed_at"], name: "index_maintenance_services_on_completed_at"
+    t.index ["discarded_at"], name: "index_maintenance_services_on_discarded_at"
     t.index ["priority"], name: "index_maintenance_services_on_priority"
     t.index ["status"], name: "index_maintenance_services_on_status"
     t.index ["vehicle_id"], name: "index_maintenance_services_on_vehicle_id"
@@ -45,8 +47,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_15_024146) do
     t.string "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
     t.index "lower((plate)::text)", name: "index_vehicles_on_lower_plate", unique: true
     t.index "lower((vin)::text)", name: "index_vehicles_on_lower_vin", unique: true
+    t.index ["discarded_at"], name: "index_vehicles_on_discarded_at"
     t.index ["status"], name: "index_vehicles_on_status"
   end
 

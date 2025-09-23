@@ -5,7 +5,7 @@ module Api
 
       # GET /api/v1/vehicles
       def index
-        vehicles = Vehicle.all
+        vehicles = Vehicle.kept
                           .filter_by_status(params[:status])
                           .search(params[:q])
                           .ordered(params[:sort_by] || "id", params[:sort_order] || "desc")
@@ -34,14 +34,14 @@ module Api
 
       # DELETE /api/v1/vehicles/:id
       def destroy
-        @vehicle.destroy
+        @vehicle.discard!
         head :no_content
       end
 
       private
 
       def set_vehicle
-        @vehicle = Vehicle.find(params[:id])
+        @vehicle = Vehicle.kept.find(params[:id])
       end
 
       def vehicle_params

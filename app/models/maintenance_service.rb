@@ -1,4 +1,6 @@
 class MaintenanceService < ApplicationRecord
+  include Discard::Model
+
   belongs_to :vehicle
 
   enum :status, { pending: "pending", in_progress: "in_progress", completed: "completed" }, validate: true
@@ -8,6 +10,7 @@ class MaintenanceService < ApplicationRecord
   validates :cost_cents, numericality: { greater_than_or_equal_to: 0 }
   validates :completed_at, presence: true,  comparison: { less_than_or_equal_to: -> { Time.current } }, if: -> { status == "completed" }
 
+  scope :kept, -> { undiscarded.joins(:vehicle).merge(Vehicle.kept) }
   scope :filter_by_status, -> (status) { where(status: status) if status.present? }
   scope :filter_by_priority, -> (priority) { where(priority: priority) if priority.present? }
   scope :search, -> (id) { where(id: id) if id.present? }
