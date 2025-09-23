@@ -119,6 +119,8 @@ GEM
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.6.2)
+    discard (1.4.0)
+      activerecord (>= 4.2, < 9.0)
     drb (2.2.3)
     erb (5.0.2)
     erubi (1.13.1)
@@ -427,6 +429,7 @@ DEPENDENCIES
   brakeman
   capybara
   debug
+  discard (~> 1.4)
   factory_bot_rails
   faker
   haml-rails (~> 2.0)
