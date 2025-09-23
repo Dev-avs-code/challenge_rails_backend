@@ -32,11 +32,11 @@ module Api
       private
 
       def set_maintenance_service
-        @maintenance_service = MaintenanceService.find(params[:id])
+        @maintenance_service = MaintenanceService.kept.find(params[:id])
       end
 
       def set_vehicle
-        @vehicle = Vehicle.find(params[:vehicle_id])
+        @vehicle = Vehicle.kept.find(params[:vehicle_id])
       end
 
       def maintenance_service_params

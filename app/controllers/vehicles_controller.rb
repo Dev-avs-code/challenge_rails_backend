@@ -3,7 +3,7 @@ class VehiclesController < ApplicationController
 
   # GET /vehicles
   def index
-    @vehicles = Vehicle.all
+    @vehicles = Vehicle.kept
                        .filter_by_status(params[:status])
                        .search(params[:q])
                        .ordered(params[:sort_by] || "id", params[:sort_order] || "desc")
@@ -62,7 +62,7 @@ class VehiclesController < ApplicationController
 
   # DELETE /vehicles/1
   def destroy
-    @vehicle.destroy!
+    @vehicle.discard!
 
     respond_to do |format|
       format.turbo_stream do
@@ -74,7 +74,7 @@ class VehiclesController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_vehicle
-    @vehicle = Vehicle.find(params[:id])
+    @vehicle = Vehicle.kept.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

@@ -1,4 +1,6 @@
 class Vehicle < ApplicationRecord
+  include Discard::Model
+
   has_many :maintenance_services, dependent: :destroy
 
   enum :status, { active: "active", inactive: "inactive", in_maintenance: "in_maintenance" }, validate: true
