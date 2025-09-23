@@ -58,6 +58,21 @@ RSpec.describe 'maintenance_services', type: :request do
         expect(response).to match_response_schema('errors')
       end
     end
+
+    context 'with discarded maintenance service' do
+      it 'should not updates a maintenance service' do
+        service.discard
+        params = {
+          maintenance_service: {
+            status: 'in_progress'
+          }
+        }
+        put "/api/v1/maintenance_services/#{service.id}", params: params, headers: valid_token_header(user)
+
+        expect(response).to have_http_status(:not_found)
+        expect(response.body).to match_response_schema('errors', strict: true)
+      end
+    end
   end
 
   context 'with unauthorized user' do

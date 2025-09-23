@@ -66,10 +66,11 @@ RSpec.describe VehiclesController, type: :controller do
     it 'removes the vehicle and responds with turbo_stream' do
       expect {
         delete :destroy, params: { id: vehicle.id }, as: :turbo_stream
-      }.to change(Vehicle, :count).by(-1)
+      }.not_to change(Vehicle, :count)
 
       expect(response).to have_http_status(:ok)
       expect(response.media_type).to eq("text/vnd.turbo-stream.html")
+      expect(Vehicle.with_discarded.find(vehicle.id)).to be_present
     end
   end
 end
