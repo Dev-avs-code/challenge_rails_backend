@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'vehicles', type: :request do
-  let(:user) { create(:user) }
+  let!(:user) { create(:user) }
   let(:vehicles) { create_list(:vehicle, 5) }
-  let(:vehicle) { create(:vehicle) }
+  let!(:vehicle) { create(:vehicle) }
 
   context 'with authorized user' do
     it 'should return a list of vehicles' do
@@ -40,10 +40,13 @@ RSpec.describe 'vehicles', type: :request do
         expect(response.body).to match_response_schema('vehicles/show', strict: true)
       end
 
-      it 'should delete a vehicle' do
-        delete "/api/v1/vehicles/#{vehicle.id}", headers: valid_token_header(user)
+      it 'should discard a vehicle' do
+        expect {
+          delete "/api/v1/vehicles/#{vehicle.id}", headers: valid_token_header(user)
+        }.not_to change(Vehicle, :count)
 
         expect(response).to have_http_status(:no_content)
+        expect(Vehicle.with_discarded.find(vehicle.id)).to be_present
       end
     end
 
@@ -70,6 +73,30 @@ RSpec.describe 'vehicles', type: :request do
         put "/api/v1/vehicles/#{vehicle.id}", params: params, headers: valid_token_header(user)
 
         expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.body).to match_response_schema('errors', strict: true)
+      end
+    end
+
+    context 'with discarded vehicle' do
+      it 'should not return a discarded vehicle' do
+        vehicle.discard
+
+        get "/api/v1/vehicles/#{vehicle.id}", headers: valid_token_header(user)
+
+        expect(response).to have_http_status(:not_found)
+        expect(response.body).to match_response_schema('errors', strict: true)
+      end
+
+      it 'should not update a discarded vehicle' do
+        vehicle.discard
+        params = {
+          vehicle: {
+            status: 'inactive'
+          }
+        }
+        put "/api/v1/vehicles/#{vehicle.id}", params: params, headers: valid_token_header(user)
+
+        expect(response).to have_http_status(:not_found)
         expect(response.body).to match_response_schema('errors', strict: true)
       end
     end
