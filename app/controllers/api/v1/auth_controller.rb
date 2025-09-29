@@ -5,7 +5,7 @@ module Api
 
       def login
         @token = Auth::AuthenticateUser.new(login_params[:email], login_params[:password]).call
-        render json: { message: AuthMessages.login_successful, token: @token, token_type: 'Bearer' }, status: :accepted
+        render json: { message: 'Login successful', token: @token, token_type: 'Bearer' }, status: :accepted
       end
 
       private

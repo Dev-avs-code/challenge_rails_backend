@@ -6,10 +6,10 @@ module Api
 
         if report.invalid?
           return render json: {
-            error: {
-              code: 422,
-              message: 'Validation failed',
-              details: report.errors.to_hash
+            errors: {
+              status: 422,
+              title: 'Validation failed',
+              detail: report.errors.to_hash
             }
           }, status: :unprocessable_entity
         else

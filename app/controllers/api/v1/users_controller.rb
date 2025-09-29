@@ -7,7 +7,7 @@ module Api
         user = User.create!(user_params)
         auth_token = Auth::AuthenticateUser.new(user.email, user.password).call
         render json: {
-          message: AuthMessages.account_created,
+          message: 'Account created successfully',
           token: auth_token,
           token_type: 'Bearer'
         }, status: :created

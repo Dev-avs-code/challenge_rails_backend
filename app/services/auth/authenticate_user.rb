@@ -20,7 +20,7 @@ module Auth
       user = User.find_by(email: @email)
       return user if user&.authenticate(@password)
 
-      raise ExceptionHandler::AuthenticationError, AuthMessages.invalid_credentials
+      raise ApiException::AuthenticationError
     end
   end
 end
