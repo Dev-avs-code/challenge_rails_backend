@@ -12,10 +12,12 @@ module Reports
 
     def call
       {
-        statuses: get_count_by_status,
-        vehicles: get_services_by_vehicle,
-        top_vehicles_by_cost: get_top_vehicles,
-        summary: get_summary,
+        data: {
+          statuses: get_count_by_status,
+          vehicles: get_services_by_vehicle,
+          top_vehicles_by_cost: get_top_vehicles,
+          summary: get_summary
+        },
         meta: {
           from: @from,
           to: @to,

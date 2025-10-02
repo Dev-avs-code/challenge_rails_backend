@@ -4,8 +4,16 @@ module Api
       skip_before_action :authorized, only: [:login]
 
       def login
-        @token = Auth::AuthenticateUser.new(login_params[:email], login_params[:password]).call
-        render json: { message: 'Login successful', token: @token, token_type: 'Bearer' }, status: :accepted
+        auth_token = Auth::AuthenticateUser.call(**login_params.to_h.symbolize_keys)
+        render json: {
+          data: {
+            message: 'Login successful',
+            token: auth_token.result,
+            token_type: 'Bearer',
+            expired_at: auth_token.expired_at,
+            user: UserSerializer.new(auth_token.user)
+          }
+        }, status: :accepted
       end
 
       private

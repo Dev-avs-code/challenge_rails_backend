@@ -1,95 +1,107 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Maintenance services Index Response",
   "type": "object",
-  "required": [
-    "maintenance_services",
-    "meta"
-  ],
   "properties": {
-    "maintenance_services": {
+    "data": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "id",
-          "description",
-          "status",
-          "cost_cents",
-          "priority",
-          "completed_at",
-          "created_at",
-          "updated_at"
-        ],
         "properties": {
           "id": {
-            "type": "integer"
-          },
-          "description": {
             "type": "string"
           },
-          "status": {
+          "type": {
             "type": "string"
           },
-          "cost_cents": {
-            "type": "string"
-          },
-          "priority": {
-            "type": "string"
-          },
-          "completed_at": {
-            "type": [
-              "string",
-              "null"
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "description": {
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "pending",
+                  "in_progress",
+                  "completed"
+                ]
+              },
+              "cost_cents": {
+                "type": "string"
+              },
+              "priority": {
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ]
+              },
+              "completed_at": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "updated_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "description",
+              "status",
+              "cost_cents",
+              "priority",
+              "completed_at",
+              "created_at",
+              "updated_at"
             ]
-          },
-          "created_at": {
-            "type": "string"
-          },
-          "updated_at": {
-            "type": "string"
           }
         }
       }
     },
-    "meta": {
+    "links": {
       "type": "object",
-      "required": [
-        "pagination"
-      ],
       "properties": {
-        "pagination": {
-          "type": "object",
-          "required": [
-            "total_records",
-            "current_page",
-            "total_pages",
-            "next_page",
-            "prev_page"
-          ],
-          "properties": {
-            "total_records": {
-              "type": "integer"
-            },
-            "current_page": {
-              "type": "integer"
-            },
-            "total_pages": {
-              "type": "integer"
-            },
-            "next_page": {
-              "type": [
-                "integer",
-                "null"
-              ]
-            },
-            "prev_page": {
-              "type": [
-                "integer",
-                "null"
-              ]
-            }
-          }
+        "self": {
+          "type": "string"
+        },
+        "first": {
+          "type": "string"
+        },
+        "prev": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "next": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "last": {
+          "type": "string"
         }
-      }
+      },
+      "required": [
+        "self",
+        "first",
+        "prev",
+        "next",
+        "last"
+      ]
     }
-  }
+  },
+  "required": [
+    "data",
+    "links"
+  ]
 }

@@ -12,7 +12,7 @@ module Api
                           .page(params[:page])
                           .per(params[:per_page])
 
-        render json: vehicles, meta: pagination(vehicles)
+        render json: vehicles
       end
 
       # GET /api/v1/vehicles/:id
@@ -45,7 +45,7 @@ module Api
       end
 
       def vehicle_params
-        params.require(:vehicle).permit(:vin, :plate, :brand, :model, :year, :status)
+        params.permit(:vin, :plate, :brand, :model, :year, :status)
       end
     end
   end

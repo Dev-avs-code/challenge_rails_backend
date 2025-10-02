@@ -14,7 +14,7 @@ module Api
                            .page(params[:page])
                            .per(params[:per_page])
 
-        render json: services, meta: pagination(services)
+        render json: services
       end
 
       # POST /api/v1/vehicles/:vehicle_id/maintenance_services
@@ -40,7 +40,7 @@ module Api
       end
 
       def maintenance_service_params
-        params.require(:maintenance_service).permit(:description, :status, :cost_cents, :priority, :completed_at)
+        params.permit(:description, :status, :cost_cents, :priority, :completed_at)
       end
     end
   end

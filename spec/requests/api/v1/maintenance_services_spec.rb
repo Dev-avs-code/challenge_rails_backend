@@ -17,7 +17,7 @@ RSpec.describe 'maintenance_services', type: :request do
     context 'with valid params' do
       it 'should create a maintenance service for a vehicle' do
         post "/api/v1/vehicles/#{vehicle.id}/maintenance_services",
-              params: { maintenance_service: attributes_for(:maintenance_service) }, headers: valid_token_header(user)
+              params: attributes_for(:maintenance_service), headers: valid_token_header(user)
 
         expect(response).to have_http_status(:created)
         expect(response).to match_response_schema('maintenance_services/show')
@@ -25,9 +25,7 @@ RSpec.describe 'maintenance_services', type: :request do
 
       it 'should updates a maintenance service' do
         params = {
-          maintenance_service: {
-            status: 'in_progress'
-          }
+          status: 'in_progress'
         }
         put "/api/v1/maintenance_services/#{service.id}", params: params, headers: valid_token_header(user)
 
@@ -39,7 +37,7 @@ RSpec.describe 'maintenance_services', type: :request do
     context 'with invalid params' do
       it 'should not create a maintenance service for a vehicle' do
         post "/api/v1/vehicles/#{vehicle.id}/maintenance_services",
-              params: { maintenance_service: attributes_for(:maintenance_service, status: 'other_status') },
+              params: attributes_for(:maintenance_service, status: 'other_status'),
               headers: valid_token_header(user)
 
         expect(response).to have_http_status(:unprocessable_entity)
@@ -48,9 +46,7 @@ RSpec.describe 'maintenance_services', type: :request do
 
       it 'should not updates a maintenance service' do
         params = {
-          maintenance_service: {
-            status: 'completed'
-          }
+          status: 'completed'
         }
         put "/api/v1/maintenance_services/#{service.id}", params: params, headers: valid_token_header(user)
 
@@ -63,9 +59,7 @@ RSpec.describe 'maintenance_services', type: :request do
       it 'should not updates a maintenance service' do
         service.discard
         params = {
-          maintenance_service: {
-            status: 'in_progress'
-          }
+          status: 'in_progress'
         }
         put "/api/v1/maintenance_services/#{service.id}", params: params, headers: valid_token_header(user)
 
@@ -87,7 +81,7 @@ RSpec.describe 'maintenance_services', type: :request do
 
       it 'should not create a maintenance service for a vehicle' do
         post "/api/v1/vehicles/#{vehicle.id}/maintenance_services",
-              params: { maintenance_service: attributes_for(:maintenance_service) }
+              params: attributes_for(:maintenance_service)
 
         expect(response).to have_http_status(:unauthorized)
         expect(response.body).to match_response_schema('errors', strict: true)
@@ -96,9 +90,7 @@ RSpec.describe 'maintenance_services', type: :request do
 
       it 'should not update a maintenance service' do
         params = {
-          maintenance_service: {
-            status: 'in_progress'
-          }
+          status: 'in_progress'
         }
         put "/api/v1/maintenance_services/#{service.id}", params: params
 
@@ -117,7 +109,7 @@ RSpec.describe 'maintenance_services', type: :request do
 
       it 'should not create a maintenance service for a vehicle' do
         post "/api/v1/vehicles/#{vehicle.id}/maintenance_services",
-              params: { maintenance_service: attributes_for(:maintenance_service) },
+              params: attributes_for(:maintenance_service),
               headers: invalid_token_header(user)
 
         expect(response).to have_http_status(:unauthorized)
@@ -126,9 +118,7 @@ RSpec.describe 'maintenance_services', type: :request do
 
       it 'should not update a maintenance service' do
         params = {
-          maintenance_service: {
-            status: 'in_progress'
-          }
+          status: 'in_progress'
         }
         put "/api/v1/maintenance_services/#{service.id}", params: params, headers: invalid_token_header(user)
 
@@ -147,7 +137,7 @@ RSpec.describe 'maintenance_services', type: :request do
 
       it 'should not create a maintenance service for a vehicle' do
         post "/api/v1/vehicles/#{vehicle.id}/maintenance_services",
-              params: { maintenance_service: attributes_for(:maintenance_service) },
+              params: attributes_for(:maintenance_service),
               headers: expired_token_header(user)
 
         expect(response).to have_http_status(:unauthorized)
@@ -157,9 +147,7 @@ RSpec.describe 'maintenance_services', type: :request do
 
       it 'should not update a maintenance service' do
         params = {
-          maintenance_service: {
-            status: 'in_progress'
-          }
+          status: 'in_progress'
         }
         put "/api/v1/maintenance_services/#{service.id}", params: params, headers: expired_token_header(user)
 

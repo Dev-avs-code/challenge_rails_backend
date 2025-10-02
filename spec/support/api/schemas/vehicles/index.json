@@ -1,96 +1,108 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Vehicles Index Response",
   "type": "object",
-  "required": [
-    "vehicles",
-    "meta"
-  ],
   "properties": {
-    "vehicles": {
+    "data": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "id",
-          "vin",
-          "plate",
-          "brand",
-          "model",
-          "year",
-          "status",
-          "created_at",
-          "updated_at"
-        ],
         "properties": {
           "id": {
-            "type": "integer"
-          },
-          "vin": {
             "type": "string"
           },
-          "plate": {
+          "type": {
             "type": "string"
           },
-          "brand": {
-            "type": "string"
-          },
-          "model": {
-            "type": "string"
-          },
-          "year": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "created_at": {
-            "type": "string"
-          },
-          "updated_at": {
-            "type": "string"
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "vin": {
+                "type": "string"
+              },
+              "plate": {
+                "type": "string"
+              },
+              "brand": {
+                "type": "string"
+              },
+              "model": {
+                "type": "string"
+              },
+              "year": {
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "in_maintenance",
+                  "inactive"
+                ]
+              },
+              "created-at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updated-at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "vin",
+              "plate",
+              "brand",
+              "model",
+              "year",
+              "status",
+              "created-at",
+              "updated-at"
+            ]
           }
-        }
+        },
+        "required": [
+          "id",
+          "type",
+          "attributes"
+        ]
       }
     },
-    "meta": {
+    "links": {
       "type": "object",
-      "required": [
-        "pagination"
-      ],
       "properties": {
-        "pagination": {
-          "type": "object",
-          "required": [
-            "total_records",
-            "current_page",
-            "total_pages",
-            "next_page",
-            "prev_page"
-          ],
-          "properties": {
-            "total_records": {
-              "type": "integer"
-            },
-            "current_page": {
-              "type": "integer"
-            },
-            "total_pages": {
-              "type": "integer"
-            },
-            "next_page": {
-              "type": [
-                "integer",
-                "null"
-              ]
-            },
-            "prev_page": {
-              "type": [
-                "integer",
-                "null"
-              ]
-            }
-          }
+        "self": {
+          "type": "string"
+        },
+        "first": {
+          "type": "string"
+        },
+        "prev": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "next": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "last": {
+          "type": "string"
         }
-      }
+      },
+      "required": [
+        "self",
+        "first",
+        "prev",
+        "next",
+        "last"
+      ]
     }
-  }
+  },
+  "required": [
+    "data",
+    "links"
+  ]
 }

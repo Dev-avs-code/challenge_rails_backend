@@ -22,7 +22,7 @@ RSpec.describe 'vehicles', type: :request do
 
     context 'with valid params' do
       it 'should create a new vehicle' do
-        post '/api/v1/vehicles', params: { vehicle: attributes_for(:vehicle) }, headers: valid_token_header(user)
+        post '/api/v1/vehicles', params: attributes_for(:vehicle), headers: valid_token_header(user)
 
         expect(response).to have_http_status(:created)
         expect(response.body).to match_response_schema('vehicles/show', strict: true)
@@ -30,9 +30,7 @@ RSpec.describe 'vehicles', type: :request do
 
       it 'should updates a vehicle' do
         params = {
-          vehicle: {
-            status: 'inactive'
-          }
+          status: 'inactive'
         }
         put "/api/v1/vehicles/#{vehicle.id}", params: params, headers: valid_token_header(user)
 
@@ -53,10 +51,8 @@ RSpec.describe 'vehicles', type: :request do
     context 'with invalid params' do
       it 'should not create a new vehicle' do
         params = {
-          vehicle: {
-            brand: 'Mercedes-Benz',
-            model: 'Serie 300'
-          }
+          brand: 'Mercedes-Benz',
+          model: 'Serie 300'
         }
         post '/api/v1/vehicles', params: params, headers: valid_token_header(user)
 
@@ -66,9 +62,7 @@ RSpec.describe 'vehicles', type: :request do
 
       it 'should not update a vehicle' do
         params = {
-          vehicle: {
-            status: 'other'
-          }
+          status: 'other'
         }
         put "/api/v1/vehicles/#{vehicle.id}", params: params, headers: valid_token_header(user)
 
@@ -90,9 +84,7 @@ RSpec.describe 'vehicles', type: :request do
       it 'should not update a discarded vehicle' do
         vehicle.discard
         params = {
-          vehicle: {
-            status: 'inactive'
-          }
+          status: 'inactive'
         }
         put "/api/v1/vehicles/#{vehicle.id}", params: params, headers: valid_token_header(user)
 
@@ -130,9 +122,7 @@ RSpec.describe 'vehicles', type: :request do
 
       it 'should not update a vehicle' do
         params = {
-          vehicle: {
-            status: 'inactive'
-          }
+          status: 'inactive'
         }
         put "/api/v1/vehicles/#{vehicle.id}", params: params
 
@@ -166,7 +156,7 @@ RSpec.describe 'vehicles', type: :request do
       end
 
       it 'should not create a vehicle' do
-        post '/api/v1/vehicles', params: { vehicle: attributes_for(:vehicle) }, headers: invalid_token_header(user)
+        post '/api/v1/vehicles', params: attributes_for(:vehicle), headers: invalid_token_header(user)
 
         expect(response).to have_http_status(:unauthorized)
         expect(response.body).to match_response_schema('errors', strict: true)
@@ -174,9 +164,7 @@ RSpec.describe 'vehicles', type: :request do
 
       it 'should not update a vehicle' do
         params = {
-          vehicle: {
-            status: 'inactive'
-          }
+          status: 'inactive'
         }
         put "/api/v1/vehicles/#{vehicle.id}", params: params, headers: invalid_token_header(user)
 
@@ -210,7 +198,7 @@ RSpec.describe 'vehicles', type: :request do
       end
 
       it 'should not create a vehicle' do
-        post '/api/v1/vehicles', params: { vehicle: attributes_for(:vehicle) }, headers: expired_token_header(user)
+        post '/api/v1/vehicles', params: attributes_for(:vehicle), headers: expired_token_header(user)
 
         expect(response).to have_http_status(:unauthorized)
         expect(response.body).to match_response_schema('errors', strict: true)
@@ -219,9 +207,7 @@ RSpec.describe 'vehicles', type: :request do
 
       it 'should not update a vehicle' do
         params = {
-          vehicle: {
-            status: 'inactive'
-          }
+          status: 'inactive'
         }
         put "/api/v1/vehicles/#{vehicle.id}", params: params, headers: expired_token_header(user)
 

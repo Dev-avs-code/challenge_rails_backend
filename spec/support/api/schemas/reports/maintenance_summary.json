@@ -1,59 +1,91 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Report Response",
   "type": "object",
-  "required": [
-    "statuses",
-    "vehicles",
-    "top_vehicles_by_cost",
-    "summary",
-    "meta"
-  ],
   "properties": {
-    "statuses": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "status",
-          "count"
-        ],
-        "properties": {
-          "status": {
-            "type": "string"
-          },
-          "count": {
-            "type": "integer"
+    "data": {
+      "statuses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "status",
+            "count"
+          ],
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "count": {
+              "type": "integer"
+            }
           }
         }
-      }
-    },
-    "vehicles": {
-      "type": "array",
-      "items": {
+      },
+      "vehicles": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "vehicle_id",
+            "vin",
+            "plate",
+            "status_breakdown",
+            "total_services",
+            "total_cost_cents"
+          ],
+          "properties": {
+            "vehicle_id": {
+              "type": "integer"
+            },
+            "vin": {
+              "type": "string"
+            },
+            "plate": {
+              "type": "string"
+            },
+            "status_breakdown": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer"
+              }
+            },
+            "total_services": {
+              "type": "integer"
+            },
+            "total_cost_cents": {
+              "type": "string",
+              "pattern": "^[0-9]+(\\.[0-9]+)?$"
+            }
+          }
+        }
+      },
+      "top_vehicles_by_cost": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "vehicle_id",
+            "total_cost_cents"
+          ],
+          "properties": {
+            "vehicle_id": {
+              "type": "integer"
+            },
+            "total_cost_cents": {
+              "type": "string",
+              "pattern": "^[0-9]+(\\.[0-9]+)?$"
+            }
+          }
+        }
+      },
+      "summary": {
         "type": "object",
         "required": [
-          "vehicle_id",
-          "vin",
-          "plate",
-          "status_breakdown",
           "total_services",
           "total_cost_cents"
         ],
         "properties": {
-          "vehicle_id": {
-            "type": "integer"
-          },
-          "vin": {
-            "type": "string"
-          },
-          "plate": {
-            "type": "string"
-          },
-          "status_breakdown": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "integer"
-            }
-          },
           "total_services": {
             "type": "integer"
           },
@@ -61,41 +93,6 @@
             "type": "string",
             "pattern": "^[0-9]+(\\.[0-9]+)?$"
           }
-        }
-      }
-    },
-    "top_vehicles_by_cost": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "vehicle_id",
-          "total_cost_cents"
-        ],
-        "properties": {
-          "vehicle_id": {
-            "type": "integer"
-          },
-          "total_cost_cents": {
-            "type": "string",
-            "pattern": "^[0-9]+(\\.[0-9]+)?$"
-          }
-        }
-      }
-    },
-    "summary": {
-      "type": "object",
-      "required": [
-        "total_services",
-        "total_cost_cents"
-      ],
-      "properties": {
-        "total_services": {
-          "type": "integer"
-        },
-        "total_cost_cents": {
-          "type": "string",
-          "pattern": "^[0-9]+(\\.[0-9]+)?$"
         }
       }
     },
@@ -122,5 +119,8 @@
       }
     }
   },
-  "additionalProperties": false
+  "required": [
+    "data",
+    "meta"
+  ]
 }

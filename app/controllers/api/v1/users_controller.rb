@@ -5,11 +5,15 @@ module Api
 
       def create
         user = User.create!(user_params)
-        auth_token = Auth::AuthenticateUser.new(user.email, user.password).call
+        auth_token = Auth::AuthenticateUser.call(email: user.email, password: user.password)
         render json: {
-          message: 'Account created successfully',
-          token: auth_token,
-          token_type: 'Bearer'
+          data: {
+            message: 'Account created successfully',
+            token: auth_token.result,
+            token_type: 'Bearer',
+            expired_at: auth_token.expired_at,
+            user: UserSerializer.new(auth_token.user)
+          }
         }, status: :created
       end
 
