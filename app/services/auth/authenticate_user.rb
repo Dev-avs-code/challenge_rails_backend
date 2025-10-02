@@ -1,24 +1,27 @@
 module Auth
-  class AuthenticateUser
+  class AuthenticateUser < Patterns::Service
     ALGORITHM = 'HS256'
-    EXP_TOKEN = 1.hours.from_now
     HMAC_SECRET = Rails.application.credentials.dig(:jwt, :secret_key)
 
-    def initialize(email, password)
-      @email = email || nil
-      @password = password || nil
+    attr_reader :user, :expired_at
+
+    def initialize(email: nil, password: nil)
+      @email = email
+      @password = password
+      @expired_at = 1.hours.from_now.to_i
     end
 
     def call
-      payload = { user_id: user.id, exp: EXP_TOKEN.to_i }
+      authenticate_user
+      payload = { user_id: @user.id, exp: @expired_at }
       JWT.encode(payload, HMAC_SECRET, ALGORITHM)
     end
 
     private
 
-    def user
-      user = User.find_by(email: @email)
-      return user if user&.authenticate(@password)
+    def authenticate_user
+      @user = User.find_by(email: @email)
+      return @user if @user&.authenticate(@password)
 
       raise ApiException::AuthenticationError
     end
