@@ -1,51 +1,71 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Vehicle Show Response",
   "type": "object",
-  "required": [
-    "vehicle"
-  ],
   "properties": {
-    "vehicle": {
+    "data": {
       "type": "object",
-      "required": [
-        "id",
-        "vin",
-        "plate",
-        "brand",
-        "model",
-        "year",
-        "status",
-        "created_at",
-        "updated_at"
-      ],
       "properties": {
         "id": {
-          "type": "integer"
-        },
-        "vin": {
           "type": "string"
         },
-        "plate": {
+        "type": {
           "type": "string"
         },
-        "brand": {
-          "type": "string"
-        },
-        "model": {
-          "type": "string"
-        },
-        "year": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
-        "created_at": {
-          "type": "string"
-        },
-        "updated_at": {
-          "type": "string"
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "vin": {
+              "type": "string"
+            },
+            "plate": {
+              "type": "string"
+            },
+            "brand": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "year": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "active",
+                "in_maintenance",
+                "inactive"
+              ]
+            },
+            "created-at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updated-at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "vin",
+            "plate",
+            "brand",
+            "model",
+            "year",
+            "status",
+            "created-at",
+            "updated-at"
+          ]
         }
-      }
+      },
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ]
     }
-  }
+  },
+  "required": [
+    "data"
+  ]
 }
