@@ -1,7 +1,7 @@
 module TestHelpers
   module AuthHelpers
     def valid_token_header(user)
-      token = Auth::AuthenticateUser.new(user.email, user.password).call
+      token = Auth::AuthenticateUser.call(email: user.email, password: user.password).result
       authorization_header(token)
     end
 
